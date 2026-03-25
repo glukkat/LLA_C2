@@ -96,8 +96,7 @@ int kv_put(kv_t*table, char*key, char*value) {
 	return RET_EINTERN;
 }
 
-/*void kv_free(kv_t*table) {
+void kv_free(kv_t*table) {
 	free(table->entries);
 	free(table);
 }
-*/
