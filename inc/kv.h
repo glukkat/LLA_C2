@@ -3,6 +3,8 @@
 
 #include <stdlib.h>
 
+#define TOMBSTONE 0x01
+
 typedef struct {
 	char*key;
 	char*value;
@@ -16,6 +18,8 @@ typedef struct {
 
 kv_t*kv_init(size_t capacity);
 
-void kv_free(kv_t*table);
+int kv_put(kv_t*table, char*key, char*value);
+
+//void kv_free(kv_t*table);
 
 #endif
