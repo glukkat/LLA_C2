@@ -34,7 +34,7 @@ size_t kv_hash(char*val, int capacity) {
 
 	return hashish % capacity;
 }
-
+/*
 int kv_put(kv_t*table, char*key, char*value) {
 	if (!table || !key || !value) return -1;
 
@@ -95,7 +95,7 @@ int kv_put(kv_t*table, char*key, char*value) {
 
 	return RET_EINTERN;
 }
-
+*/
 void kv_free(kv_t*table) {
 	free(table->entries);
 	free(table);
