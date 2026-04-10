@@ -35,7 +35,7 @@ size_t kv_hash(char*val, int capacity) {
 	return hashish % capacity;
 }
 
-int kv_put(kv_t*table, char*key, char*value) {
+int kv_put(kv_t*table, const char*key, const char*value) {
 	if (!table || !key || !value) return -1;
 
 	size_t idx = kv_hash(key, table->capacity);
