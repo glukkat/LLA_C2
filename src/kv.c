@@ -34,7 +34,7 @@ size_t kv_hash(char*val, int capacity) {
 
 	return hashish % capacity;
 }
-/*
+
 int kv_put(kv_t*table, char*key, char*value) {
 	if (!table || !key || !value) return -1;
 
@@ -51,15 +51,15 @@ int kv_put(kv_t*table, char*key, char*value) {
 		kv_entry_t*e = &table->entries[real_idx];
 
 		//key exists, updating
-		if (e->key && !strcmp(e->key, key)) {
+		if (e->key && e->key != (void*) TOMBSTONE && !strcmp(e->key, key)) {
 			char*newval = strdup(value);
 			if (!newval) return RET_EINPUT;
 			e->value = newval;
 			return real_idx;
 		}
 
-		//empty slot (null or tombstone)
-		if (!e->key || e->key == (void*) TOMBSTONE) {
+		//empty slot (null)
+		if (!e->key) {
 			char*newkey = strdup(key);
 			char*newval = strdup(value);
 			if (!newval||!newkey) {
@@ -67,13 +67,14 @@ int kv_put(kv_t*table, char*key, char*value) {
 				free(newkey);
 				return RET_EINPUT;
 			}
+			if(tombstone_found) e = &table->entries[first_tombstone];
 			e->key = newkey;
 			e->value = newval;
 			table->count++;
 			return real_idx;
 		}
 
-		if (!tombstone_found && e->key != (void*) TOMBSTONE) {
+		if (!tombstone_found && e->key == (void*) TOMBSTONE) {
 			tombstone_found = 1;
 			first_tombstone = real_idx;
 		}
@@ -95,7 +96,7 @@ int kv_put(kv_t*table, char*key, char*value) {
 
 	return RET_EINTERN;
 }
-*/
+
 void kv_free(kv_t*table) {
 	free(table->entries);
 	free(table);
