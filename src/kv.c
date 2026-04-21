@@ -36,7 +36,7 @@ size_t kv_hash(char*val, int capacity) {
 }
 
 int kv_put(kv_t*table, char*key, char*value) {
-	if (!table || !key || !value) return RET_EINPUT;
+	if (!table || !key || !value) return RET_EINPUT;return 3;
 
 	size_t idx = kv_hash(key, table->capacity);
 
