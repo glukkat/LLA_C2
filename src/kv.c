@@ -1,3 +1,11 @@
+
+/*		Important:
+ *
+ */ //	Text after the string /*#####*/ is there temporarily
+/*		for bug fixing or testing reasons.
+ *		It should be removed eventually
+ */
+
 #include <string.h>
 #include <stdlib.h>
 #include "kv.h"
