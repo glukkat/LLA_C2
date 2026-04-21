@@ -61,6 +61,7 @@ int kv_put(kv_t*table, char*key, char*value) {
 
 		//key exists, updating
 		if (e->key && e->key != TOMBSTONE && !strcmp(e->key, key)) {
+			free(e->value);
 			char*newval = strdup(value);
 			if (!newval) return RET_EINPUT;
 			e->value = newval;/*#####*/return 0;
@@ -150,17 +151,22 @@ int kv_delete(kv_t*table, char*key) {
 
 	return RET_EINPUT;
 }
-/*
+
 void kv_free(kv_t*table) {
-	if (table == NULL) return RET_EINPUT;
+	if (table == NULL) return;
 
 	size_t capacity = table->capacity;
 
-	for (int i = 0; i <= capacity; i++) {
-		if ()
+	for (int i = 0; i < capacity; i++) {
+		kv_entry_t*e = &table->entries[i];
+
+		if (!e->key && e->key == TOMBSTONE) continue;
+		free(e->key);
+		free(e->value);
 	}
 
 	free(table->entries);
 	free(table);
+
+	return;
 }
-*/

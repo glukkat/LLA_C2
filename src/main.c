@@ -26,4 +26,15 @@ int main() {
 	for (int i = 0; i < db->capacity; i++) {
 		if (db->entries[i].key) printf("%d - %s: %s\n", i, db->entries[i].key, db->entries[i].value);
 	}
+	puts("\n");
+
+	kv_put(db, "7", "NEIN!!!");
+	kv_delete(db, "c");
+	kv_put(db, "C", "CCCP!!!!");
+
+	for (int i = 0; i < db->capacity; i++) {
+		if (db->entries[i].key) printf("%d - %s: %s\n", i, db->entries[i].key, db->entries[i].value);
+	}
+
+	kv_free(db);
 }
