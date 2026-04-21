@@ -18,12 +18,12 @@ typedef struct {
 
 kv_t*kv_init(size_t capacity);
 
-int kv_put(kv_t*table, const char*key, const char*value);
+int kv_put(kv_t*table, char*key, char*value);
 
-char*kv_get(kv_t*table, const char*key);
+char*kv_get(kv_t*table, char*key);
 
-//int kv_delete(kv_t*table, const char*key);
+int kv_delete(kv_t*table, char*key);
 
-//void kv_free(kv_t*table);
+void kv_free(kv_t*table);
 
 #endif
