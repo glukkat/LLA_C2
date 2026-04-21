@@ -13,6 +13,7 @@
 #define RET_SUCCESS 0
 #define RET_EINPUT -1
 #define RET_EINTERN -2
+#define RET_ERRPOINT NULL
 
 kv_t*kv_init(size_t capacity) {
 	if (capacity == (long long) NULL) return NULL;
@@ -43,7 +44,26 @@ size_t kv_hash(char*val, int capacity) {
 	return hashish % capacity;
 }
 
-int kv_put(kv_t*table, char*key, char*value) {
+char*kv_get(kv_t*table, const char*key) {
+	if (!table || !key) return RET_ERRPOINT;
+
+	size_t idx = kv_hash(key, table->capacity);
+
+	for (int i = 0; i < table->capacity; i++) {
+
+		size_t real_idx = (idx + i) % table->capacity;
+		
+		kv_entry_t*e = &table->entries[real_idx];
+
+		if (!e->key) return RET_ERRPOINT;
+
+		if (e->key && e->key != TOMBSTONE && !strcmp(e->key, key)) return e->value;
+	}
+
+	return RET_ERRPOINT;
+}
+
+int kv_put(kv_t*table, const char*key, const char*value) {
 	if (!table || !key || !value) return RET_EINPUT;
 
 	size_t idx = kv_hash(key, table->capacity);
@@ -105,9 +125,14 @@ int kv_put(kv_t*table, char*key, char*value) {
 	}
 
 	return RET_EINTERN;
+}/*
+
+int kv_delete(kv_t*table, const char*key) {
+	//
 }
 
-/*void kv_free(kv_t*table) {
+void kv_free(kv_t*table) {
 	free(table->entries);
 	free(table);
-}*/
+}
+*/
