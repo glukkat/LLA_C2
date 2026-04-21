@@ -126,7 +126,7 @@ char*kv_get(kv_t*table, char*key) {
 
 	return RET_ERRPOINT;
 }
-/*
+
 int kv_delete(kv_t*table, char*key) {
 	if (!table || !key) return RET_EINPUT;
 
@@ -141,16 +141,24 @@ int kv_delete(kv_t*table, char*key) {
 		if (!e->key) return RET_EINPUT;
 
 		if (e->key && e->key != TOMBSTONE && !strcmp(e->key, key)) {
-			e->key = NULL;
+			free(e->key), free(e->value);
+			e->key = TOMBSTONE;
+			table->count--;
 			return RET_SUCCESS;
 		}
 	}
 
 	return RET_EINPUT;
 }
-
+/*
 void kv_free(kv_t*table) {
 	if (table == NULL) return RET_EINPUT;
+
+	size_t capacity = table->capacity;
+
+	for (int i = 0; i <= capacity; i++) {
+		if ()
+	}
 
 	free(table->entries);
 	free(table);

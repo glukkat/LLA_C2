@@ -22,7 +22,7 @@ int kv_put(kv_t*table, char*key, char*value);
 
 char*kv_get(kv_t*table, char*key);
 
-//int kv_delete(kv_t*table, char*key);
+int kv_delete(kv_t*table, char*key);
 
 //void kv_free(kv_t*table);
 
